@@ -1,43 +1,30 @@
-from selene import browser, have
-import os
-from os.path import dirname, abspath
-
-path = os.path.join(dirname(abspath(__file__)), "resources")
+from demoqa_tests.pages.registration_page import RegistrationPage
 
 
 def test_demoqa_form():
+    registration_page = RegistrationPage()
 
-    browser.open('https://demoqa.com/automation-practice-form')
-    browser.driver.execute_script("document.querySelector('.body-height').style.transform='scale(.50)'")
-
-    browser.element('#firstName').type('firstName')
-    browser.element('#lastName').type('lastName')
-    browser.element('#userEmail').type('test@gmail.com')
-    browser.element('[for="gender-radio-2"]').click()
-    browser.element('#userNumber').type('7777777777')
-
-    browser.element('#dateOfBirthInput').click()
-    browser.element('.react-datepicker__year-select').element('[value="1991"]').click()
-    browser.element('.react-datepicker__month-select').element('[value="2"]').click()
-    browser.element('.react-datepicker__day--003').click()
-
-    browser.element('#subjectsInput').type('Computer Science').press_enter()
-    browser.element('[for="hobbies-checkbox-2"]').click()
-    browser.element('[type=file]').send_keys(path + '/orig.jpg')
-    browser.element('#currentAddress').type('Current Address')
-    browser.element('#react-select-3-input').type('raj').press_enter()
-    browser.element('#react-select-4-input').type('jai').press_enter()
-    browser.element('#submit').press_enter()
-
-    browser.element('#example-modal-sizes-title-lg').should(have.text('Thanks for submitting the form'))
-    browser.element('.table-responsive').all('tr>td').even.should(have.exact_texts(
-        'firstName lastName',
+    registration_page.open()
+    registration_page.fill_full_name('Yana', 'Testovna')
+    registration_page.fill_email('test@gmail.com')
+    registration_page.fill_gender(2)  # 1=Male, 2=Female, 3=Other
+    registration_page.fill_mobile('7777777777')
+    registration_page.fill_date_of_birth('1991', '2', '11')
+    registration_page.fill_subject('Computer Science')
+    registration_page.choose_hobbies('Reading')
+    registration_page.add_photo('/orig.jpg')
+    registration_page.fill_current_address('Current Address')
+    registration_page.select_state_city('raj', 'jai')
+    registration_page.submit()
+    registration_page.should_registered_user_with(
+        'Thanks for submitting the form',
+        'Yana Testovna',
         'test@gmail.com',
         'Female',
         '7777777777',
-        '03 March,1991',
+        '11 March,1991',
         'Computer Science',
         'Reading',
         'orig.jpg',
         'Current Address',
-        'Rajasthan Jaipur'))
+        'Rajasthan Jaipur')
