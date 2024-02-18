@@ -10,4 +10,3 @@ def test_demoqa_form():
     registration_page.register(admin)
     registration_page.submit()
     registration_page.should_have_registered(admin)
-

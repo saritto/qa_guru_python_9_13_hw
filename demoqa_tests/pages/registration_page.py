@@ -1,10 +1,7 @@
 from selene import browser, have, command
-import os
-from os.path import dirname, abspath
 
 from demoqa_tests.data.users import User
-
-path = os.path.join(dirname(dirname(dirname(abspath(__file__)))), "resources/")
+from demoqa_tests import path_file
 
 
 class RegistrationPage:
@@ -24,7 +21,8 @@ class RegistrationPage:
         self.state = browser.element('#react-select-3-input')
         self.city = browser.element('#react-select-4-input')
 
-    def open(self):
+    @staticmethod
+    def open():
         browser.open('https://demoqa.com/automation-practice-form')
         browser.driver.execute_script("document.querySelector('.body-height').style.transform='scale(.50)'")
 
@@ -54,7 +52,7 @@ class RegistrationPage:
         self.hobby.element_by(have.exact_text(value)).click()
 
     def add_photo(self, value):
-        self.photo.send_keys(path + value)
+        self.photo.set_value(path_file.path(value))
 
     def fill_current_address(self, value):
         self.current_address.type(value)
@@ -63,7 +61,8 @@ class RegistrationPage:
         self.state.type(value1).press_enter()
         self.city.type(value2).press_enter()
 
-    def submit(self):
+    @staticmethod
+    def submit():
         browser.element('#submit').perform(command.js.click)
 
     def register(self, user: User):
@@ -78,7 +77,8 @@ class RegistrationPage:
         self.fill_current_address(user.current_address)
         self.select_state_city(user.state, user.city)
 
-    def should_have_registered(self, user: User):
+    @staticmethod
+    def should_have_registered(user: User):
         browser.element('.table').all('td').even.should(have.exact_texts(
             f'{user.first_name} {user.last_name}',
             user.email,
