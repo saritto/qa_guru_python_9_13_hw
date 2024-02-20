@@ -29,7 +29,7 @@ class RegistrationPage:
             have.size_greater_than_or_equal(3)
         )
         browser.all('[id^=google_ads][id$=container__]').perform(command.js.remove)
-        browser.driver.execute_script("document.querySelector('.body-height').style.transform='scale(.50)'")
+        #browser.driver.execute_script("document.querySelector('.body-height').style.transform='scale(.50)'")
 
     def fill_full_name(self, first, last):
         self.first_name.type(first)
