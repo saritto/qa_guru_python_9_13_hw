@@ -25,6 +25,10 @@ class RegistrationPage:
     def open():
         browser.open('https://demoqa.com/automation-practice-form')
         browser.all('[aria-label=Consent]').element_by(have.exact_text('Consent')).click()
+        browser.all('[id^=google_ads][id$=container__]').with_(timeout=10).wait_until(
+            have.size_greater_than_or_equal(3)
+        )
+        browser.all('[id^=google_ads][id$=container__]').perform(command.js.remove)
         browser.driver.execute_script("document.querySelector('.body-height').style.transform='scale(.50)'")
 
     def fill_full_name(self, first, last):
