@@ -11,8 +11,8 @@ def browser_management():
     driver_options.add_argument('--headless')
     browser.config.driver_options = driver_options
     browser.config.timeout = 15
-    browser.config.window_height = 720
-    browser.config.window_width = 1280
+    browser.config.window_height = 1080
+    browser.config.window_width = 1920
 
     options = Options()
     selenoid_capabilities = {
