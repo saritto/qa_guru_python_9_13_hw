@@ -7,6 +7,10 @@ from selenium.webdriver.chrome.options import Options
 
 @pytest.fixture(scope='function', autouse=True)
 def browser_management():
+    driver_options = webdriver.ChromeOptions()
+    driver_options.add_argument('--headless')
+    browser.config.driver_options = driver_options
+    browser.config.timeout = 15
     browser.config.window_height = 720
     browser.config.window_width = 1280
 

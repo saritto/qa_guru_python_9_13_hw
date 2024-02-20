@@ -25,7 +25,7 @@ class RegistrationPage:
     def open():
         browser.open('https://demoqa.com/automation-practice-form')
         browser.all('[aria-label=Consent]').element_by(have.exact_text('Consent')).click()
-        #browser.driver.execute_script("document.querySelector('.body-height').style.transform='scale(.50)'")
+        browser.driver.execute_script("document.querySelector('.body-height').style.transform='scale(.50)'")
 
     def fill_full_name(self, first, last):
         self.first_name.type(first)
