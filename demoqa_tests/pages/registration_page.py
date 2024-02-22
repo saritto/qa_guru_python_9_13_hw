@@ -47,7 +47,7 @@ class RegistrationPage:
         browser.element(f'.react-datepicker__day--0{day}').click()
 
     def fill_subject(self, value):
-        self.subject.type(value).press_enter()
+        self.subject.perform(command.js.scroll_into_view).type(value).press_enter()
 
     def choose_hobbies(self, value):
         self.hobby.element_by(have.exact_text(value)).click()
